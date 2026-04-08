@@ -1,138 +1,354 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hemlata</title>
+  <title>Hemlata Pant</title>
+  <meta name="description" content="Hemlata Pant — MSci Biochemistry student, science writer, and HIV research enthusiast." />
+
   <style>
     :root {
-      --bg: #fff7fb;
-      --card: #ffffff;
-      --text: #4a3b42;
-      --muted: #8c6f7b;
-      --accent: #e8a8c4;
-      --accent-dark: #cc7ea3;
-      --border: #f3d9e5;
+      --bg: #f7f4ee;
+      --surface: #fcfbf8;
+      --text: #1f1c17;
+      --muted: #6d685f;
+      --line: #d9d2c7;
+      --accent: #0d5c63;
+      --accent-2: #a34d2d;
+      --max: 1100px;
+      --radius: 18px;
+      --shadow: 0 12px 40px rgba(0,0,0,0.06);
     }
 
-    * {
-      box-sizing: border-box;
+    html[data-theme="dark"] {
+      --bg: #161411;
+      --surface: #1e1b17;
+      --text: #f3efe8;
+      --muted: #b3ab9e;
+      --line: #34302a;
+      --accent: #7ac1c7;
+      --accent-2: #d28a67;
+      --shadow: 0 12px 40px rgba(0,0,0,0.28);
     }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: Georgia, "Times New Roman", serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      padding: 32px 20px;
+      line-height: 1.6;
     }
 
-    .container {
-      max-width: 760px;
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .wrap {
+      width: min(calc(100% - 2rem), var(--max));
       margin: 0 auto;
     }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 28px;
-      box-shadow: 0 10px 30px rgba(232, 168, 196, 0.12);
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .theme-toggle {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.5rem 0.85rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 5.5rem 0 4rem;
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      margin-bottom: 1rem;
     }
 
     h1 {
-      margin: 0 0 8px;
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--text);
+      font-size: clamp(2.5rem, 7vw, 5.8rem);
+      line-height: 0.95;
+      font-weight: 500;
+      margin: 0 0 1.2rem;
+      max-width: 8ch;
     }
 
-    .subtitle {
-      margin: 0 0 24px;
+    .lead {
+      font-size: 1.12rem;
       color: var(--muted);
+      max-width: 34rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      background: var(--surface);
+    }
+
+    .pill.primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .meta {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .meta h2, .section h2 {
       font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 0 0 1rem;
+      font-weight: 500;
     }
 
-    h2 {
-      margin-top: 28px;
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-      color: var(--accent-dark);
-    }
-
-    p {
-      margin: 0 0 16px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
+    .meta p, .section p {
       margin: 0;
     }
 
-    li {
-      margin-bottom: 12px;
+    .section {
+      padding: 2rem 0 3rem;
+      border-top: 1px solid var(--line);
     }
 
-    a {
-      color: var(--accent-dark);
-      text-decoration: none;
-      font-weight: 600;
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .list {
+      display: grid;
+      gap: 1rem;
     }
 
-    .link-box {
-      display: block;
-      background: #fff0f6;
-      border: 1px solid var(--border);
-      padding: 14px 16px;
-      border-radius: 14px;
+    .item-title {
+      font-size: 1.15rem;
+      margin-bottom: 0.2rem;
     }
 
-    .footer-note {
-      margin-top: 24px;
-      font-size: 0.95rem;
+    .item-meta {
       color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.45rem;
     }
 
-    @media (max-width: 600px) {
-      .card {
-        padding: 28px 20px;
+    footer {
+      padding: 2rem 0 4rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero, .grid-two {
+        grid-template-columns: 1fr;
       }
 
-      h1 {
-        font-size: 2rem;
+      .topbar {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
       }
+
+      h1 { max-width: 100%; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <h1>Hemlata</h1>
-      <p class="subtitle">Biochemistry student interested in HIV research, science writing and bioinformatics.</p>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">Hemlata Pant</div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#writing">Writing</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
+      </nav>
+    </header>
 
-      <h2>About</h2>
-      <p>
-        I am building a portfolio that brings together my interests in biochemistry,
-        HIV research, science communication and computational biology.
-      </p>
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Biochemistry · HIV · Science writing</div>
+          <h1>Hemlata Pant</h1>
+          <p class="lead">
+            Third-year MSci Biochemistry student on placement at GSK/ViiV Healthcare, interested in HIV research,
+            medical communications, and translating complex biology clearly.
+          </p>
+          <div class="hero-links">
+            <a class="pill primary" href="mailto:hemlata.pant@outlook.com">Email me</a>
+            <a class="pill" href="https://substack.com/@biochemistrytranslated" target="_blank" rel="noopener noreferrer">Science blog</a>
+            <a class="pill" href="https://linkedin.com/in/h3mlata-pant" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
 
-      <h2>Links</h2>
-      <ul>
-        <li><a class="link-box" href="https://github.com/h3mlata" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a class="link-box" href="https://www.linkedin.com/in/h3mlata-pant/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a class="link-box" href="https://substack.com/@biochemistrytranslated" target="_blank" rel="noopener noreferrer">Writing</a></li>
-      </ul>
+        <aside class="meta card">
+          <div>
+            <h2>Now</h2>
+            <p>Medical Governance &amp; Operations placement student at GSK/ViiV Healthcare in London.</p>
+          </div>
+          <div>
+            <h2>Interested in</h2>
+            <p>HIV therapeutics, multidrug-resistant HIV, science writing, clinical research, and beginner coding.</p>
+          </div>
+          <div>
+            <h2>Base</h2>
+            <p>Ware, England · University of Birmingham</p>
+          </div>
+        </aside>
+      </section>
 
-      <p class="footer-note">
-        This site is a small space for my projects, writing and scientific interests.
-      </p>
-    </div>
+      <section class="section" id="about">
+        <h2>About</h2>
+        <div class="grid-two">
+          <div class="card">
+            <p>
+              I’m a biochemistry student with a strong interest in HIV, translational science, and clear scientific communication.
+              My current placement has given me experience across medical governance, clinical operations, training content,
+              and internal communications in a global HIV setting.
+            </p>
+          </div>
+          <div class="card">
+            <p>
+              Alongside that, I write for general audiences through my blog, Biochemistry, Translated. I’m especially interested
+              in work that sits between deep scientific detail and useful, readable explanation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="writing">
+        <h2>Writing</h2>
+        <div class="list">
+          <div class="card">
+            <div class="item-title">Biochemistry, Translated</div>
+            <div class="item-meta">Science writing blog</div>
+            <p>Public-facing writing on biochemistry, HIV, sleep science, and related topics.</p>
+          </div>
+          <div class="card">
+            <div class="item-title">MDR HIV literature review</div>
+            <div class="item-meta">University of Birmingham</div>
+            <p>First-class literature review on antiretrovirals for multidrug-resistant HIV.</p>
+          </div>
+          <div class="card">
+            <div class="item-title">Science communication</div>
+            <div class="item-meta">Outreach and competition work</div>
+            <p>Winner of The Oxford Scientist Schools’ Science Writing Competition.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <h2>Work</h2>
+        <div class="list">
+          <div class="card">
+            <div class="item-title">GSK / ViiV Healthcare</div>
+            <div class="item-meta">Medical Governance &amp; Operations Intern · 2025–2026</div>
+            <p>Governance communications, training delivery, clinical operations exposure, and support across global HIV programmes.</p>
+          </div>
+          <div class="card">
+            <div class="item-title">The Salters’ Institute</div>
+            <div class="item-meta">Chemistry Outreach Ambassador</div>
+            <p>Science outreach for school and university audiences, adapting content to different levels of prior knowledge.</p>
+          </div>
+          <div class="card">
+            <div class="item-title">Bloomberg</div>
+            <div class="item-meta">Data Analyst Summer Intern</div>
+            <p>Applied data analysis and reporting skills in a team-based setting.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <h2>Contact</h2>
+        <div class="grid-two">
+          <div class="card">
+            <p>Email: <a href="mailto:hemlata.pant@outlook.com">hemlata.pant@outlook.com</a></p>
+            <p>LinkedIn: <a href="https://linkedin.com/in/h3mlata-pant" target="_blank" rel="noopener noreferrer">linkedin.com/in/h3mlata-pant</a></p>
+          </div>
+          <div class="card">
+            <p>Open to conversations about science writing, HIV research, medical communications, and future collaborations.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built by Hemlata Pant · Hosted on GitHub Pages</p>
+    </footer>
   </div>
+
+  <script>
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      root.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>
